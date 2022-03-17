@@ -29,6 +29,7 @@ class Translator {
         type: 'input',
         name: key,
         message: `Please translate: "${key}"`,
+        default: key,
       }
     })
 
