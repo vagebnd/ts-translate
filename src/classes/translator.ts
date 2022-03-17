@@ -27,7 +27,7 @@ class Translator {
     const prompts = this.listUntranslatedKeys().map((key) => {
       return {
         type: 'input',
-        name: key,
+        name: `${key}`, // make sure that tailing dot isn't converted to object
         message: `Please translate: "${key}"`,
         default: key,
       }
