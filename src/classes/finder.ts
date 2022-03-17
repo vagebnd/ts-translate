@@ -10,7 +10,7 @@ class Finder {
 
   private get pattern() {
     const functions = this.config.functions.map((func) => '\\' + func).join('|')
-    let pattern = `([FUNCTIONS])\\([\\'"](.+)[\\'"][\\),]`
+    let pattern = `([FUNCTIONS])\\([\\'"\`](.+)[\\'"\`][\\),]`
     return new RegExp(pattern.replace('[FUNCTIONS]', functions), 'g')
   }
 
