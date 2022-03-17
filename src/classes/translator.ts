@@ -34,6 +34,16 @@ class Translator {
     })
 
     const answers = await inquirer.prompt(prompts)
+
+    // Ensure values aren't objects
+    Object.entries(answers).forEach(([key, value]) => {
+      if (typeof value === 'object') {
+        const newValue = Object.values(value as object)[0] ?? ''
+        const newKey = `${key}.`
+        delete Object.assign(answers, { [newKey]: newValue })[key]
+      }
+    })
+
     this.config.adapter.write(this.language, answers)
     return answers
   }
