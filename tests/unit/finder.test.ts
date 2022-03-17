@@ -19,6 +19,6 @@ test('it returns an array of translatable strings', () => {
     'Second translation',
     'Third translation',
     'JS test translations string',
-    'TS test translations string',
+    'TS test translations string.',
   ])
 })
