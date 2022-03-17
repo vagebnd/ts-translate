@@ -1,4 +1,3 @@
-import { ConfigOptions } from '../types/config'
 import Config from '/@/classes/config'
 import { readFileSync } from 'fs'
 
@@ -22,6 +21,7 @@ class Finder {
       .map((file) => readFileSync(file, 'utf-8'))
       .map((contents) => {
         const matches = [...contents.matchAll(this.pattern)]
+        // TODO: Add support for multiple translations on the same line
         return matches.map((match) => match[2])
       })
       .filter((value) => value.length)
