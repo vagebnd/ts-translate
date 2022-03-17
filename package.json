@@ -6,6 +6,9 @@
   "author": "Gianluca Riggio",
   "license": "MIT",
   "private": false,
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias",
     "dev": "ts-node -r tsconfig-paths/register ./src/main.ts",
