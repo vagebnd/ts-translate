@@ -20,7 +20,7 @@ test('it translates all keys per language', () => {
     const untranslatedKeys = translator.listUntranslatedKeys()
     const expectedPrompts = untranslatedKeys.map((key) => {
       return {
-        message: `Translate the following: "${key}"`,
+        message: `Please translate: "${key}"`,
         input: key,
       }
     })
