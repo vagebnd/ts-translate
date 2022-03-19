@@ -16,6 +16,7 @@ test('it has loaded the config file', () => {
 test('it returns an array of translatable strings', () => {
   expect(finder.getTranslatableStrings()).toEqual([
     'Vue test translations string',
+    'another translation on the same line',
     'Second translation',
     'Third translation',
     'JS test translations string',

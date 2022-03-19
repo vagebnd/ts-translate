@@ -10,7 +10,7 @@ class Finder {
 
   private get pattern() {
     const functions = this.config.functions.map((func) => '\\' + func).join('|')
-    let pattern = `([FUNCTIONS])\\([\\'"\`](.+)[\\'"\`][\\),]`
+    let pattern = `([FUNCTIONS])\\([\\'"\`](.*?)[\\'"\`][\\),]`
     return new RegExp(pattern.replace('[FUNCTIONS]', functions), 'g')
   }
 
@@ -21,7 +21,6 @@ class Finder {
       .map((file) => readFileSync(file, 'utf-8'))
       .map((contents) => {
         const matches = [...contents.matchAll(this.pattern)]
-        // TODO: Add support for multiple translations on the same line
         return matches.map((match) => match[2])
       })
       .filter((value) => value.length)
