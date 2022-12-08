@@ -1,44 +1,31 @@
-jest.mock('inquirer')
-
-const { prompt, expectPrompts } = require('inquirer')
-
 import Translator from '/@/classes/translator'
 import Config from '/@/classes/config'
-import Finder from '/@/classes/finder'
 
 import { join } from 'path'
+import prompts from 'prompts'
 
 const settings = require(join(process.cwd(), 'tests/data/.vue-translations.js'))
-const config = new Config(settings)
-const finder = new Finder(config)
+const config = new Config({ ...settings, saveOutput: false})
 
-test('it translates all keys per language', () => {
-  config.supportedLanguages.forEach(async (language) => {
-    const translator = new Translator(config, language)
-    const previousTranslations = config.adapter.read(language)
+test('it lists all untranslated keys', () => {
+  const translator = new Translator(config, 'en')
 
-    const untranslatedKeys = translator.listUntranslatedKeys()
-    const expectedPrompts = untranslatedKeys.map((key) => {
-      return {
-        message: `Please translate: "${key}"`,
-        input: key,
-      }
-    })
+  expect(translator.listUntranslatedKeys()).toEqual([
+    'JS test translations string',
+    'Second translation',
+    'TS test translations string. (which includes dots)..',
+    'Third translation',
+    'another translation on the same line'
+  ])
+})
 
-    expectPrompts(expectedPrompts)
+test('it translates all untranslated keys', async () => {
+  const translator = new Translator(config, 'en')
+  const untranslatedKeys = translator.listUntranslatedKeys()
 
-    const answers = await translator.translate()
-    const expectedAnswers: Record<string, string> = {}
+  prompts.inject(untranslatedKeys)
 
-    untranslatedKeys.forEach((key) => {
-      if (key) {
-        expectedAnswers[key] = key
-      }
-    })
+  const results = await translator.translate()
 
-    expect(answers).toEqual(expectedAnswers)
-    expect(Object.keys(config.adapter.read(language)).sort()).toEqual(finder.getTranslatableStrings().sort())
-
-    config.adapter.write(language, previousTranslations, true)
-  })
+  expect(Object.values(results)).toEqual(untranslatedKeys)
 })
