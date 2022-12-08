@@ -4,4 +4,5 @@ export type ConfigOptions = {
   outputFolder?: string
   sourceFolder?: string
   functions?: string[]
+  saveOutput?: boolean
 }

@@ -12,14 +12,17 @@ class Config {
   public sourceFolder: string
   public functions: string[]
 
-  public constructor(options: ConfigOptions = {}) {
-    const defaults = Object.assign(this.defaultOptions, options)
+  public saveOutput: boolean
 
-    this.extensions = defaults.extensions
-    this.languages = defaults.languages
-    this.sourceFolder = defaults.sourceFolder
-    this.functions = defaults.functions
-    this.adapter = defaults.adapter
+  public constructor(options: ConfigOptions = {}) {
+    const settings = Object.assign(this.defaultOptions, options)
+
+    this.extensions = settings.extensions
+    this.languages = settings.languages
+    this.sourceFolder = settings.sourceFolder
+    this.functions = settings.functions
+    this.adapter = settings.adapter
+    this.saveOutput = settings.saveOutput
   }
 
   public get defaultOptions() {
@@ -29,6 +32,7 @@ class Config {
       sourceFolder: join(process.cwd(), 'src'),
       functions: ['$t', '$tc', '$i18n.t'],
       adapter: new JsonAdapter({ path: join(process.cwd(), 'src/locales') }),
+      saveOutput: true,
     }
   }
 

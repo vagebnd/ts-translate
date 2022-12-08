@@ -1,9 +1,8 @@
 import Config from './config'
 import Finder from '/@/classes/finder'
-import inquirer from 'inquirer'
+import prompts, { PromptObject } from 'prompts'
 
 class Translator {
-  private readonly dotReplacer: string = '__DOT__'
   private config: Config
   private language: string
 
@@ -25,35 +24,20 @@ class Translator {
   }
 
   public async translate() {
-    const prompts = this.listUntranslatedKeys().map((key) => {
+    const questions = this.listUntranslatedKeys().map((key) => {
       return {
-        type: 'input',
-        name: this.replaceTailingDot(key), // make sure that tailing dot isn't converted to object
+        type: 'text',
+        name: key,
         message: `Please translate: "${key}"`,
-        default: key,
-      }
+        initial: key,
+      } as PromptObject
     })
 
-    const answers: Record<string, any> = await inquirer.prompt(prompts)
-    this.config.adapter.write(this.language, this.restoreTailingDots(answers))
-    return answers
-  }
+    const answers: Record<string, string> = await prompts(questions)
 
-  private replaceTailingDot(key: string) {
-    if (key.endsWith('.')) {
-      return key.replace('.', this.dotReplacer)
+    if (this.config.saveOutput) {
+      this.config.adapter.write(this.language, answers)
     }
-
-    return key
-  }
-
-  private restoreTailingDots(answers: Record<string, any>) {
-    Object.entries(answers).forEach(([key, value]) => {
-      if (key.endsWith(this.dotReplacer)) {
-        const newKey = key.replace(this.dotReplacer, '.')
-        delete Object.assign(answers, { [newKey]: value })[key]
-      }
-    })
 
     return answers
   }
