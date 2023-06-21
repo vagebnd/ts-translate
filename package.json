@@ -1,5 +1,5 @@
 {
-  "name": "translations-helper",
+  "name": "vue-translations-helper",
   "version": "0.0.4",
   "description": "A tool that scans your files for vue-i18n translations and helps you translate them",
   "main": "index.js",
