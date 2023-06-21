@@ -12,9 +12,19 @@ class Main {
   }
 
   private loadConfig() {
-    const configPath = join(process.cwd(), '.vue-translations.js')
+    const configPath = join(process.cwd(), '.vue-translations')
 
-    if (!existsSync(configPath)) {
+    const possibleExtensions = ['.js', '.cjs']
+    let foundConfigPath = ''
+
+    for (const extension of possibleExtensions) {
+      if (existsSync(`${configPath}${extension}`)) {
+        foundConfigPath = `${configPath}${extension}`
+        break
+      }
+    }
+
+    if (!foundConfigPath) {
       this.config = new Config()
       console.log('No config file found, using defaults')
 
@@ -24,7 +34,7 @@ class Main {
 
       console.table(displayOutput)
     } else {
-      this.config = new Config(require(configPath))
+      this.config = new Config(require(foundConfigPath))
     }
   }
 
