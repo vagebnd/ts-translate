@@ -9,7 +9,7 @@ const finder = new Finder(config)
 
 test('it has loaded the config file', () => {
   expect(finder.config.glob).toContain('**/*.{vue,ts,js}')
-  expect(finder.config.sourceFolder).toContain('/vue-translations-helper/tests/data')
+  expect(finder.config.sourceFolder).toContain('/ts-translate/tests/data')
   expect(finder.config.supportedLanguages).toEqual(['en', 'ru'])
 })
 
