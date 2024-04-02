@@ -12,7 +12,7 @@ class Main {
   }
 
   private loadConfig() {
-    const configPath = join(process.cwd(), '.vue-translations')
+    const configPath = join(process.cwd(), '.ts-translations')
 
     const possibleExtensions = ['.js', '.cjs']
     let foundConfigPath = ''

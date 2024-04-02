@@ -15,6 +15,6 @@
       "/@/*": ["src/*"]
     }
   },
-  "include": ["./src", "./tests", "tests/.vue-translations.js"],
+  "include": ["./src", "./tests", "tests/.ts-translations.js"],
   "exclude": ["node_modules", "dist", "tests/data"]
 }

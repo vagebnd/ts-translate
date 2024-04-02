@@ -14,7 +14,7 @@ test('it correctly removes leading dots from extensions', () => {
 })
 
 test('it returns a list of all translatable files', () => {
-  const config = new Config(require(join(process.cwd(), 'tests/data/.vue-translations.js')))
+  const config = new Config(require(join(process.cwd(), 'tests/data/.ts-translations.js')))
 
   expect(config.listTranslatableFiles()).toBeInstanceOf(Array)
   expect(config.listTranslatableFiles().toString()).toContain('component-without-translations.vue')

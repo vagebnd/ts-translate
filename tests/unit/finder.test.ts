@@ -3,7 +3,7 @@ import Config from '/@/classes/config'
 
 import { join } from 'path'
 
-const settings = require(join(process.cwd(), 'tests/data/.vue-translations.js'))
+const settings = require(join(process.cwd(), 'tests/data/.ts-translations.js'))
 const config = new Config(settings)
 const finder = new Finder(config)
 
