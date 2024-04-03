@@ -1,6 +1,6 @@
 {
   "name": "@vagebond/ts-translate",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "A tool that scans your files for translations and helps you translate them.",
   "main": "index.js",
   "author": {
