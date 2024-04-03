@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias",
-    "build:publish": "yarn build && npm publish --registry https://npm.vagebond.nl",
+    "build:publish": "yarn build && npm publish --access public",
     "dev": "ts-node -r tsconfig-paths/register ./src/main.ts",
     "test": "jest"
   },
